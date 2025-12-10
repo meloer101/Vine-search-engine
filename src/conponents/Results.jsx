@@ -1,10 +1,10 @@
 import React from 'react';
 
 
-export const Search = () => {
+export const Results = () => {
   return (
     <div>
-        <h1>Search</h1>
+        <h1>Results</h1>
     </div>
   );
 };
