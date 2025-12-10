@@ -8,14 +8,16 @@ import { Routes } from './conponents/Routes'
 
 
 const App = () => {
-  const [count, setCount] = useState(0)
+  const [darkTheme, setDarkTheme] = useState(false);
 
   return (
-    <>
-      <NavBar />
-      <Routes />
-      <Footer />
-    </>
+    <div className={darkTheme ? 'dark' : ''}>
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+        <NavBar />
+        <Routes />
+        <Footer />
+      </div>
+    </div>
   );
 }
 
