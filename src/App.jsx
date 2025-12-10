@@ -5,6 +5,7 @@ import './App.css'
 import { NavBar } from './conponents/NavBar'
 import { Footer } from './conponents/Footer'
 import { Routes } from './conponents/Routes'
+import { Search } from './conponents/Search'
 
 
 const App = () => {
