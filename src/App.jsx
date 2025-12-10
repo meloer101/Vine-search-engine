@@ -12,7 +12,7 @@ const App = () => {
 
   return (
     <div className={darkTheme ? 'dark' : ''}>
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="bg-gray-100 dark:bg-gray-900 dark:text-gray-200 min-h-screen ">
         <NavBar />
         <Routes />
         <Footer />
