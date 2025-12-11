@@ -1,8 +1,7 @@
 import React, { createContext, useState, useContext } from "react";
 
 const ResultContext = createContext();
-const baseurl = "https://google-search74.p.rapidapi.com/v1";
-
+const baseurl = "https://google-search74.p.rapidapi.com";
 
 // 创建一个结果上下文提供者组件
 export const ResultContextProvider = ({ children }) => {

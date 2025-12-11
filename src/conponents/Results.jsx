@@ -1,46 +1,42 @@
-import React, { use, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import ReactPlayer from 'react-player';
-import { Loading } from './Loading';
+import React, {  useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import ReactPlayer from "react-player";
+import { Loading } from "./Loading";
 
-import { useResultContext } from '../contexts/ResultContextProvider';
+import { useResultContext } from "../contexts/ResultContextProvider";
 
 export const Results = () => {
-
   const { results, isLoading, getResults, searchTerm } = useResultContext();
   const location = useLocation();
 
   useEffect(() => {
-    getResults ('/search/q=Javascript tutorials&num=40') },[]);
-
+    getResults('/search/q=Javascript&num=40');
+  }, []);
 
   if (isLoading) return <Loading />;
 
   switch (location.pathname) {
-    case '/search':
-      return 'Search';
-      case '/image':
-      return 'Image';
-    case '/news':
-      return 'News';
-    case '/video':
+    case "/search":
       return (
         <div className="flex flex-wrap justify-between space-y-6 sm:px-56">
-          {results?.map(({ link , title },index) => (
+          {results?.map(({ link, title }, index) => (
             <div key={index} className="md:w-2/5 w-full">
-              <a gref={link} target="_blank" rel="noreferrer">
-                <p className="text-sm">{link.length > 30 ? link.substring(0, 30) + '...' : link}</p>
-                <p className="text-lg hover:underline dark:text-blue-300 text-blue-700">{title}</p>
+              <a href={link} target="_blank" rel="noreferrer">
+                <p className="text-sm">
+                  {link.length > 30 ? link.substring(0, 30) + "..." : link}
+                </p>
+                <p className="text-lg hover:underline dark:text-blue-300 text-blue-700">
+                  {title}
+                </p>
                 <ReactPlayer url={link} controls width="355px" height="200px" />
               </a>
-                
             </div>
-          ) ) }
-        </div>)
-
-       
+          ))}
+        </div>
+      );
 
     default:
-      return 'ERROR!';
+      return "ERROR!";
   }
 };
+
