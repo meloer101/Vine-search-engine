@@ -8,26 +8,12 @@ export const AppRoutes = () => {
       <Routes>
         {/* 将所有 "/" 重定向到 "/search" */}
         <Route path="/" element={<Navigate to="/search" replace />} />
-
         {/* 渲染多个 path 指向同一个组件 */}
-        <Route
-          path="/search"
-          element={<Results />}
-        />
-        <Route
-          path="/images"
-          element={<Results />}
-        />
-        <Route
-          path="/news"
-          element={<Results />}
-        />
-        <Route
-          path="/videos"
-          element={<Results />}
-        />
+        <Route path="/search" element={<Results />} />
+        <Route path="/images" element={<Results />} />
+        <Route path="/news" element={<Results />} />
+        <Route path="/videos" element={<Results />} />
       </Routes>
     </div>
   );
 };
-
