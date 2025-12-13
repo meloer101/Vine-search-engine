@@ -1,37 +1,48 @@
 import React, { createContext, useState, useContext } from "react";
 
 const ResultContext = createContext();
-const baseurl = "https://google-search74.p.rapidapi.com";
 
-// 创建一个结果上下文提供者组件
+const API_KEY = "AIzaSyAyezCu-b7Q7nq1VMAGOTqc_LpgYb4tyTg";  // 您的 key
+const CX = "630741a5f9b6e412f";                                // 您的 cx
+const baseurl = "https://www.googleapis.com/customsearch/v1";
+
 export const ResultContextProvider = ({ children }) => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("Java");   // 默认搜索词为 "ai",调试区域
+  const [searchTerm, setSearchTerm] = useState("JavaScript");
 
-  // 根据类型匹配获取不同的搜索结果（已优化：添加错误处理和日志）
-  const getResults = async (type) => {
+  // 修改：参数改为 type ("web" 或 "image")
+  const getResults = async (type = "web") => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${baseurl}${type}`, {
-        method: "GET",
-        headers: {
-          "x-rapidapi-key": "93dd7256femsh0a68777c594d4dcp1ff318jsn16e922e453d3",
-          "x-rapidapi-host": "google-search74.p.rapidapi.com",
-        },
+      const params = new URLSearchParams({
+        key: API_KEY,
+        cx: CX,
+        q: searchTerm || "JavaScript",
+        num: "10", // 最多 10 条
       });
 
+      if (type === "image") {
+        params.append("searchType", "image");
+      }
+
+      const url = `${baseurl}?${params.toString()}`;
+      console.log("请求 URL:", url); // 调试用
+
+      const response = await fetch(url);
+
       if (!response.ok) {
-        throw new Error(`API 错误: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`Google API 错误 ${response.status}: ${errorText}`);
       }
 
       const data = await response.json();
-      console.log('API 返回数据:', data);  // 在控制台打印响应结构，便于调试
+      console.log("Google API 返回数据:", data);
 
-      setResults(data.results || []);  // 如果没有结果，返回空数组（根据 API 结构调整）
+      setResults(data.items || []);
     } catch (error) {
-      console.error('请求失败:', error);
+      console.error("搜索请求失败:", error);
       setResults([]);
     } finally {
       setIsLoading(false);
