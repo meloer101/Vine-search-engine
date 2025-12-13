@@ -1,16 +1,145 @@
-# React + Vite
+# Vine Search 搜索引擎克隆项目
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 项目简介
 
-Currently, two official plugins are available:
+**Vine Search** 是一个基于 React 的现代化搜索引擎克隆项目，整体交互和信息架构参考 Google Search，实现了网页、图片、新闻和视频等多类型搜索结果的统一展示。该项目重点体现了前端工程化能力、组件化架构设计以及真实第三方 API 的集成与异常处理。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+该项目可作为前端工程师的完整作品集项目，覆盖从 UI 架构设计到数据请求、状态管理和性能体验优化的完整流程。
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 技术栈
 
-## Expanding the ESLint configuration
+* **前端框架**：React 19
+* **路由管理**：React Router 7
+* **状态管理**：React Context API
+* **样式方案**：Tailwind CSS 4
+* **构建工具**：Vite
+* **第三方 API**：Google Custom Search API
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 项目功能
+
+* 支持多类型搜索：网页 / 图片 / 新闻 / 视频
+* 搜索关键词实时同步路由参数，支持刷新与分享
+* 搜索结果分页展示
+* 深色 / 浅色主题切换
+* 完整的加载状态与错误提示
+* 响应式布局，适配移动端与桌面端
+
+---
+
+## 项目结构
+
+```text
+src/
+├── components/                 # 通用 UI 组件
+│   ├── AppRoutes.jsx           # 路由配置
+│   ├── NavBar.jsx              # 顶部导航栏
+│   ├── Search.jsx              # 搜索输入组件
+│   ├── Results.jsx             # 搜索结果展示
+│   ├── Pagination.jsx          # 分页组件
+│   ├── Loading.jsx             # 加载状态组件
+│   └── Footer.jsx              # 页脚组件
+│
+├── contexts/                   # 全局状态管理
+│   ├── ResultContextProvider.jsx  # 搜索状态上下文
+│   └── useResultContext.js        # 自定义 Hook
+│
+├── App.jsx                     # 应用主入口
+├── index.jsx                   # React 挂载入口
+├── index.css                   # 全局样式
+└── App.css                     # 应用样式补充
+```
+
+---
+
+## 技术亮点
+
+### 1. 清晰的组件化架构
+
+项目采用高度组件化的设计思路，将搜索、结果展示、分页、导航等功能进行明确拆分。组件职责单一、边界清晰，有利于后期维护与功能扩展。
+
+通过 Context API 统一管理搜索关键词、结果数据和加载状态，避免了多层 props 传递问题，提高了代码的可读性和可维护性。
+
+---
+
+### 2. 搜索路由与状态同步
+
+* 搜索关键词与路由参数保持同步（`/search?q=xxx`）
+* 页面刷新或直接访问 URL 时可自动恢复搜索状态
+* 不同搜索类型通过路由区分，结构清晰
+
+该设计使搜索行为具备良好的可追溯性和可分享性，贴近真实搜索引擎产品体验。
+
+---
+
+### 3. 高级分页逻辑实现
+
+自定义分页组件，支持：
+
+* 根据当前页动态生成页码
+* 页数过多时自动显示省略号，避免界面拥挤
+* 上一页 / 下一页导航
+* 不同屏幕尺寸下的分页显示优化
+
+分页逻辑独立封装，具备良好的复用性。
+
+---
+
+### 4. 响应式设计与主题切换
+
+* 基于 Tailwind CSS 实现全响应式布局
+* 支持深色 / 浅色主题一键切换
+* 使用 `dark` 变体确保主题在所有组件中的一致性
+
+该方案兼顾了开发效率与 UI 一致性，符合现代前端项目实践。
+
+---
+
+### 5. 第三方 API 集成与异常处理
+
+* 集成 Google Custom Search API，获取真实搜索数据
+* 对 API 请求过程进行完整的加载状态管理
+* 对常见错误（如配额限制、请求失败）提供明确提示
+
+在 API 受限场景下依然保证了用户体验的完整性。
+
+---
+
+## 技术难点与解决方案
+
+| 难点            | 解决方案                      |
+| ------------- | ------------------------- |
+| API 请求频率与限额限制 | 增加加载状态与错误提示，避免无反馈请求       |
+| 大量分页页码展示      | 设计动态页码算法，平衡信息密度与可读性       |
+| 主题样式全局一致性     | Tailwind dark 模式 + 全局状态控制 |
+| 多端适配          | 使用 Tailwind 响应式工具类进行系统化处理 |
+
+---
+
+## 项目价值
+
+* 完整展示了前端工程师在 **组件设计、状态管理、路由设计、API 集成、响应式布局** 等方面的能力
+* 项目结构清晰，具备真实产品级别的可扩展性
+* 非 Demo 性质，具备实际业务复杂度
+
+---
+
+## 本地运行
+
+```bash
+# 安装依赖
+npm install
+
+# 启动开发环境
+npm run dev
+```
+
+---
+
+## 说明
+
+本项目为个人学习与作品集项目，搜索数据来自 Google Custom Search API，仅用于技术展示与学习交流。
+
