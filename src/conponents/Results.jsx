@@ -20,32 +20,35 @@ export const Results = () => {
   // 网页搜索
   if (location.pathname === "/search") {
     return (
-      <div className="flex flex-wrap justify-between space-y-6 sm:px-56">
-        {results?.map((item, index) => (
-          <div key={index} className="md:w-2/5 w-full">
-            <a href={item.link} target="_blank" rel="noreferrer">
-              <p className="text-sm">
-                {item.link?.length > 30
-                  ? item.link.substring(0, 30) + "..."
-                  : item.link || "无链接"}
-              </p>
-              <p className="text-lg hover:underline dark:text-blue-300 text-blue-700">
-                {item.title || "无标题"}
-              </p>
-              <p className="text-md text-gray-600">
-                {item.snippet || "无描述"}
-              </p>
-              {/* 可选：显示网页缩略图 */}
-              {item.pagemap?.cse_thumbnail?.[0]?.src && (
-                <img
-                  src={item.pagemap.cse_thumbnail[0].src}
-                  alt="thumbnail"
-                  className="mt-3 w-48 rounded"
-                />
-              )}
-            </a>
-          </div>
-        ))}
+      <div className="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+          找到约 {results?.length} 条结果 (搜索: "{searchTerm}")
+        </div>
+        <div className="space-y-8">
+          {results?.map((item, index) => (
+            <div 
+              key={index} 
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-gray-200 dark:border-gray-700"
+            >
+              <a 
+                href={item.link} 
+                target="_blank" 
+                rel="noreferrer"
+                className="block group"
+              >
+                <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors duration-200">
+                  <span>{item.displayLink || item.link}</span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                  {item.title || "无标题"}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {item.snippet || "无描述"}
+                </p>
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -53,31 +56,58 @@ export const Results = () => {
   // 图片搜索
   if (location.pathname === "/images") {
     return (
-      <div className="flex flex-wrap justify-center gap-4">
-        {results?.map((item, index) => (
-          <a
-            key={index}
-            href={item.link} // 原图页面
-            target="_blank"
-            rel="noreferrer"
-            className="block"
-          >
-            {/* Google 提供的缩略图 */}
-            <img
-              src={item.image?.thumbnailLink}
-              alt={item.title || "图片"}
-              loading="lazy"
-              className="max-w-xs max-h-64 object-cover rounded shadow hover:shadow-lg transition"
-            />
-            <p className="text-sm mt-1 text-center wrap-break-word w-64">
-              {item.title || "无标题"}
-            </p>
-          </a>
-        ))}
+      <div className="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+          找到约 {results?.length} 张图片 (搜索: "{searchTerm}")
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {results?.map((item, index) => (
+            <a
+              key={index}
+              href={item.link} // 原图页面
+              target="_blank"
+              rel="noreferrer"
+              className="block bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 border border-gray-200 dark:border-gray-700"
+            >
+              {/* 图片容器 */}
+              <div className="aspect-w-1 aspect-h-1 bg-gray-100 dark:bg-gray-700 overflow-hidden">
+                <img
+                  src={item.image?.thumbnailLink}
+                  alt={item.title || "图片"}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              {/* 图片信息 */}
+              <div className="p-4">
+                <p className="text-sm text-gray-900 dark:text-white truncate">
+                  {item.title || "无标题"}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 truncate">
+                  {item.displayLink || item.link}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     );
   }
 
-  return <div className="text-center mt-10">不支持的页面</div>;
+  // 其他搜索类型（新闻和视频）
+  return (
+    <div className="max-w-6xl mx-auto py-16 px-4 text-center">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-12 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          {location.pathname === "/news" ? "新闻搜索" : "视频搜索"}
+        </h2>
+        <p className="text-gray-600 dark:text-gray-400 text-lg">
+          {location.pathname === "/news" 
+            ? "新闻搜索功能正在开发中，敬请期待！" 
+            : "视频搜索功能正在开发中，敬请期待！"}
+        </p>
+      </div>
+    </div>
+  );
 };
 

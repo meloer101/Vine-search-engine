@@ -1,23 +1,30 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { NavBar } from "./conponents/NavBar";
 import { Footer } from "./conponents/Footer";
 import { AppRoutes } from "./conponents/AppRoutes";
-import { Search } from "./conponents/Search";
+import { ResultContextProvider } from "./contexts/ResultContextProvider";
 
 const App = () => {
   const [darkTheme, setDarkTheme] = useState(false);
 
   return (
-    <div className={darkTheme ? "dark" : ""} >
-      <div className="bg-gray-100 dark:bg-gray-900 dark:text-gray-200 min-h-screen ">
-        <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
-        <AppRoutes />
-        <Footer />
+    <ResultContextProvider>
+      <div className={darkTheme ? "dark" : ""}>
+        {/* 科技感背景 */}
+        <div className={`min-h-screen flex flex-col bg-linear-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 dark:text-gray-200 transition-all duration-500`}>
+          {/* 页面主体 */}
+          <div className="grow">
+            <NavBar darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
+            <main className="grow">
+              <AppRoutes />
+            </main>
+          </div>
+          {/* 页脚 */}
+          <Footer />
+        </div>
       </div>
-    </div>
+    </ResultContextProvider>
   );
 };
 
