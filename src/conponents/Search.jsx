@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useResultContext } from "../contexts/ResultContextProvider";
+import { useResultContext } from "../contexts/useResultContext";
 
 export const Search = () => {
   const [input, setInput] = useState("");
