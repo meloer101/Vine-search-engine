@@ -7,7 +7,7 @@ const baseurl = "https://google-search74.p.rapidapi.com";
 export const ResultContextProvider = ({ children }) => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("JavaScript");
+  const [searchTerm, setSearchTerm] = useState("Java");   // 默认搜索词为 "ai",调试区域
 
   // 根据类型匹配获取不同的搜索结果（已优化：添加错误处理和日志）
   const getResults = async (type) => {
