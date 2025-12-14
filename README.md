@@ -1,5 +1,7 @@
 # Vine Search 搜索引擎克隆项目
 
+<img src="https://github.com/meloer101/Vine-search-engine/blob/dc548f208190e993d2b50bd8c74e2e4223231df0/src/assets/kuaizhao.png">
+
 ## 项目简介
 
 **Vine Search** 是一个基于 React 的现代化搜索引擎克隆项目，整体交互和信息架构参考 Google Search，实现了网页、图片、新闻和视频等多类型搜索结果的统一展示。该项目重点体现了前端工程化能力、组件化架构设计以及真实第三方 API 的集成与异常处理。
